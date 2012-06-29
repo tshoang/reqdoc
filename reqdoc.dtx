@@ -1,0 +1,875 @@
+% \iffalse meta-comment
+% 
+% reqdoc.ins
+% 
+% Copyright (C) 2012 by Thai Son Hoang <htson at inf dot ethz dot ch>
+% --------------------------------------------------------------------
+% 
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in:
+% 
+%      http://www.latex-project.org/lppl.txt
+% 
+% and version 1.3 or later is part of all distributions of LaTeX 
+% version 2003/12/01 or later.
+% 
+% This work has the LPPL maintenance status "author-maintained".
+% 
+% This work consists of the files reqdoc.dtx, reqdoc.ins,
+% the derived file reqdoc.sty, the generated documentation
+% reqdoc.pdf, and some sample requirements documents.
+% 
+% \fi
+% 
+% \iffalse
+%<reqdoc>\NeedsTeXFormat{LaTeX2e}\relax
+%<reqdoc>\ProvidesPackage{reqdoc}
+%<reqdoc>    [2012/06/27 v1.2 Macros for requirements documents] 
+% 
+%<*driver> 
+\documentclass[a4paper]{ltxdoc}
+\usepackage{reqdoc}
+\EnableCrossrefs
+% ^^A\CodelineIndex
+\PageIndex
+\RecordChanges
+
+\begin{document}
+\DocInput{reqdoc.dtx}
+\end{document}
+%</driver> 
+% \fi
+% 
+% \CheckSum{253}
+% 
+% \CharacterTable
+% {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+% Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+% Digits        \0\1\2\3\4\5\6\7\8\9
+% Exclamation   \!     Double quote  \"     Hash (number) \#
+% Dollar        \$     Percent       \%     Ampersand     \&
+% Acute accent  \'     Left paren    \(     Right paren   \)
+% Asterisk      \*     Plus          \+     Comma         \,
+% Minus         \-     Point         \.     Solidus       \/
+% Colon         \:     Semicolon     \;     Less than     \<
+% Equals        \=     Greater than  \>     Question mark \?
+% Commercial at \@     Left bracket  \[     Backslash     \\
+% Right bracket \]     Circumflex    \^     Underscore    \_
+% Grave accent  \`     Left brace    \{     Vertical bar  \|
+% Right brace   \}     Tilde         \~}
+% 
+% 
+% \changes{v1.0}{2010/10/28}{Initial version}
+% \changes{v1.1}{2011/09/11}{Minor updates}
+% \changes{v1.2}{2012/06/27}{Minor updates}
+% \changes{v1.3}{2012/06/29}{Major updates}
+% 
+% \GetFileInfo{reqdoc.sty}
+% 
+% \DoNotIndex{\arabic}
+% \DoNotIndex{\newcommand,\renewcommand,\newenvironment,\renewenvironment}
+% \DoNotIndex{\newcounter,\value}
+% \DoNotIndex{\\,\hline}
+% \DoNotIndex{\begin,\end}
+% \DoNotIndex{\item,\medskip,\quad,\small}
+% \DoNotIndex{\label,\labelformat}
+% \DoNotIndex{\DeclareOption,\ProcessOptions,\RequirePackage}
+% \DoNotIndex{\ref,\refstepcounter,\setcounter}
+% \DoNotIndex{\textsf,\textwidth}
+%
+% \title{The \textsf{reqdoc} package\thanks{This document
+% corresponds to \textsf{reqdoc}~\fileversion, dated~\filedate.}}
+% \author{Thai Son Hoang \\ ETH-Zurich \\ \texttt{<htson at inf dot
+% ethz dot ch>}}
+% \date{June 29, 2012}
+% 
+% \maketitle
+% 
+% ^^A %%%%% Abstract %%%%%
+% \begin{abstract}
+%   This package provides macros for typesetting requirements
+%   documents.  It was developed at the Swiss Federal Institute of
+%   Technology Zurich (ETH-Zurich).
+% \end{abstract}
+% 
+% ^^A %%%%% Table of contents %%%%%
+% \tableofcontents
+% 
+% ^^A %%%%% Introduction %%%%%
+% \section{Introduction}
+% 
+% This package was developed in order to ease the typesetting of
+% requirements documents in \LaTeX{}.
+% 
+% ^^A %%%%% Usage %%%%%%
+% \section{Usage}
+% 
+% ^^A %%% Package option |compact| %%%
+% Just like any other package, you need to request this package with a
+% |\usepackage| command in the preamble.  This package take some
+% options on how requirements are presented, either normally (within
+% some bounding box) or compactly (as a compact description list).  
+% 
+% So in the simpler case, one just types
+% 
+% \indent |\usepackage{reqdoc}|
+% 
+% \noindent to load the package with the default option
+% (i.e. display requirements in normal size), or uses
+% 
+% \indent |\usepackage[compact]{reqdoc}|
+% 
+% \noindent when the user wants to present the requirements documents
+% in the compact form.
+% 
+% The rest of this section is to give descriptions of the main
+% environment |requirements| and macros for typesetting different
+% types of requirements.
+% 
+% ^^A %%% Environment |requirements| %%%
+% \DescribeEnv{requirements}
+% The requirements should be put within the |requirements|
+% environment.  The environment will be adapted accordingly to the
+% package option, e.g. |compact|.
+% 
+% ^^A %%% Requirement macros %%%
+% \DescribeMacro{\req}
+% \DescribeMacro{\eqp}
+% \DescribeMacro{\fun}
+% \DescribeMacro{\sys}
+% \DescribeMacro{\saf}
+% \DescribeMacro{\env}
+% \DescribeMacro{\asm}
+% \DescribeMacro{\sched}
+% \DescribeMacro{\alg}
+% To typeset a requirement, several macros are provided for different
+% type of requirements. The signature of the requirement macros are as
+% follows.
+%
+% \indent |\macroname|\oarg{width}\marg{ref-label}\marg{requirement}
+% 
+% \noindent The optional argument \oarg{width} defines the width for
+% the requirement box in the default normal mode. This option is
+% ignored in the compact mode.  The default value for this optional
+% argument is |0.6\textwidth|.  The argument \marg{ref-label} defines
+% the reference label, by which the requirement can be referenced
+% later using |\ref{ref-label}|.  Note that \marg{ref-label} is the
+% LaTeX label for referencing, which is different from the
+% automatically generated requirement label (discussed below).
+% Finally the argument |\marg{requirement}| is some concise
+% description test.
+%
+% ^^A %%% Requirement counter requirement@counter %%%
+% \DescribeMacro{\requirement@counter}
+% Each requirement are labelled automatically, where the labels
+% consist of some prefix (depending on the type of the requirement),
+% and some sequence number.  The requirement sequence number are
+% controlled by a counter |requirement@counter| which is advanced
+% automatically after each requirement declaration.
+%
+% Table~\ref{tab:req-macros} lists the macros, their intended purpose,
+% and the prefixes.  The convention for different types of
+% requirements does not mean to be exhaustive or necessarily disjoint. 
+% \begin{table}[!htbp]
+%  \centering
+%  \begin{tabular}{c@{\quad\quad}c@{\quad\quad}c}
+%    \hline
+%    Macro & Purpose & Prefix \\
+%    \hline
+%    |\req| & General requirements & |REQ| \\
+%    |\eqp| & Equipment requirements & |EQP| \\
+%    |\fun| & Functional requirements & |FUN| \\
+%    |\sys| & System requirements & |SYS| \\
+%    |\saf| & Safety requirements & |SAF| \\
+%    |\env| & Environment requirements & |ENV| \\
+%    |\asm| & Assumptions & |ASM| \\
+%    |\sched| & Scheduling requirements & |SCHED| \\
+%    |\alg| & Algorithmic requirements & |ALG| \\
+%    \hline
+%  \end{tabular}
+%  \caption{List of macros for requirements}
+%  \label{tab:req-macros}
+% \end{table}
+%
+% ^^A %%% Requirement spacing macro \ReqSpacing %%%
+% \DescribeMacro{\ReqSpacing}
+% An useful macro is |\ReqSpacing| to give some spacing between
+% requirements within the |requirements| environment.  This spacing
+% will be ignored when the package option |compact| is enabled.  The
+% signature of the command is as follows.
+% 
+% \indent |\ReqSpacing|\oarg{height}
+%
+% \noindent where the optional argument \oarg{height} define the
+% spacing gap (default |2ex|).
+%
+% ^^A %%% Example %%%
+% Below is a some sample requirements typeset using the newly defined
+% environment and macros.
+% \begin{verbatim}
+% \begin{requirements}
+%   \asm[0.5\textwidth]{asm:instructors}
+%   {Instructors are members of the club.}
+%   \ReqSpacing
+%   \asm[0.5\textwidth]{asm:participants}
+%   {Participants are members of the club.}
+%   \ReqSpacing[4ex]
+%   \req{req:course-status}
+%   {A course is either \emph{opened} or \emph{closed}.}
+%   \ReqSpacing
+%   \req{req:open-course}{The system allows to open a closed course.}
+%   \ReqSpacing
+%   \req{req:close-course}{The system allows to close an opened course.}
+% \end{requirements}
+% \end{verbatim}
+% 
+% In the default normal mode, the result looks like the following
+%
+% \begin{requirementsbox}
+%   \setcounter{asmc}{\value{requirement@counter}}
+%   \requirementbox[0.5\textwidth]{ASM}
+%   {Instructors are members of the club.}
+%   \refstepcounter{asmc}
+%   \label{asm:instructors}
+%   \ReqSpacing
+%   \setcounter{asmc}{\value{requirement@counter}}
+%   \requirementbox[0.5\textwidth]{ASM}
+%   {Participants are members of the club.}
+%   \refstepcounter{asmc}
+%   \label{asm:participants}
+%   \ReqSpacing[4ex]
+%   \setcounter{reqc}{\value{requirement@counter}}
+%   \requirementbox{REQ}
+%   {A course is either \emph{opened} or \emph{closed}.}
+%   \refstepcounter{reqc}
+%   \label{req:course-status}
+%   \ReqSpacing
+%   \setcounter{reqc}{\value{requirement@counter}}
+%   \requirementbox{REQ}{The system allows to open a closed course.}
+%   \refstepcounter{reqc}
+%   \label{req:open-course}
+%   \ReqSpacing
+%   \setcounter{reqc}{\value{requirement@counter}}
+%   \requirementbox{REQ}{The system allows to close an opened course.}
+%   \refstepcounter{reqc}
+%   \label{req:close-course}
+% \end{requirementsbox}
+%
+% When the package option |compact| is enabled. the result looks as
+% follows.
+%
+% \setcounter{requirement@counter}{0}
+% \begin{requirementscompact}
+%   \setcounter{asmc}{\value{requirement@counter}}
+%   \requirementcompact{ASM}{Instructors are members of the club.}
+%   \refstepcounter{asmc}
+%   \setcounter{asmc}{\value{requirement@counter}}
+%   \requirementcompact{ASM}{Participants are members of the club.}
+%   \refstepcounter{asmc}
+%   \setcounter{reqc}{\value{requirement@counter}}
+%   \requirementcompact{REQ}{A course is either \emph{opened} or
+%   \emph{closed}.}
+%   \refstepcounter{reqc}
+%   \setcounter{reqc}{\value{requirement@counter}}
+%   \requirementcompact{REQ}{The system allows to open a closed
+%   course.}
+%   \refstepcounter{reqc}
+%   \setcounter{reqc}{\value{requirement@counter}}
+%   \requirementcompact{REQ}{The system allows to close an opened
+%   course.}
+%   \refstepcounter{reqc}
+% \end{requirementscompact}
+%
+% The requirements can be referenced using the previously defined
+% labels.  An example is as follows.
+% 
+% \begin{center}
+%   \begin{minipage}[c]{0.65\linewidth}
+% \begin{verbatim}
+% There are two assumptions
+% \ref{asm:instructors}, \ref{asm:participants},
+% and three requirements \ref{req:course-status},
+% \ref{req:open-course}, \ref{req:close-course}.
+% \end{verbatim}
+%   \end{minipage}
+%   \hspace{1em}
+%   \begin{minipage}[c]{0.3\linewidth}
+%     There are two assumptions \ref{asm:instructors},
+%     \ref{asm:participants}, and three requirements
+%     \ref{req:course-status}, \ref{req:open-course}, \ref{req:close-course}.
+%   \end{minipage}
+% \end{center}
+%
+% ^^A %%%%% Implementation %%%%%
+% \section{Implementation}
+%
+% ^^A %%% Package loading %%% 
+% The implementation is quite straightforward.  We first request the
+% |varioref| package for referencing the requirements later.
+% 
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<reqdoc>
+%<reqdoc>%%%%% BEGIN Package loading %%%%%
+% \fi ^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\RequirePackage{varioref}
+%    \end{macrocode}
+%
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<reqdoc>%%%%% END Package loading %%%%%
+%<reqdoc>
+% \fi ^^A END Produce comments only in the resulting style file
+% 
+% ^^A %%% Package option |compact| %%%
+% Subsequently, we declare the option \oarg{compact} and redefine the
+% \textsf{requirements} environment accordingly.
+% \changes{v1.2}{2012/06/27}{Package option \oarg{compact} added}.
+% For the environment and macros that depending on the package
+% options, we define different auxiliary versions of the environment
+% and macros, and use the appropriate version depending on the
+% package option.  In our case, the environment |requirements|, macros
+% |\requirement| and |\ReqSpacing| are depended on the package option.
+% 
+% \iffalse ^^A BEGIN Produce comments only in the resulting style file
+%<reqdoc>
+%<reqdoc>%%%%% BEGIN Declaration of options %%%%%
+% \fi^^A END Produce comments only in the resulting style file
+%
+% \begin{environment}{requirements}
+%   \changes{v1.3}{2012/06/29}{Environment modified}
+%   By default |requirements| environment is the same as
+%   |requirementsbox| environment (to be defined later).
+%    \begin{macrocode}
+\newenvironment{requirements}
+  {\begin{requirementsbox}}
+  {\end{requirementsbox}}
+%    \end{macrocode}
+% \end{environment}^^A{requirements}
+%
+% \begin{macro}{\ReqSpacing}
+%   \changes{v1.2}{2012/06/27}{Macro added}
+%   \changes{v1.3}{2012/06/29}{Macro modified}
+%   By default |\ReqSpacing| is the same as |\ReqSpacingBox|.
+%    \begin{macrocode}
+\newcommand{\ReqSpacing}[1][2ex]{\ReqSpacingBox[#1]}
+%    \end{macrocode}
+% \end{macro}^^A{\ReqSpacing}
+%
+% \begin{macro}{\requirement}
+%   \changes{v1.3}{2012/06/29}{Macro modified}
+%   By default |\requirement| is the same as |\requirementbox|.
+%    \begin{macrocode}
+\newcommand{\requirement}[3][0.6\textwidth]{
+  \requirementbox[#1]{#2}{#3}
+}
+%    \end{macrocode}
+% \end{macro}^^A{\requirement}
+%
+% By declaring option |compact|, the previously defined environment
+% and macros are redefined accordingly.  In particular |\ReqSpacing|
+% is simply ignored.  These environment and macros are for
+% implementation purpose only. The user should not use them directly.
+%    \begin{macrocode}
+\DeclareOption{compact}{
+  \renewenvironment{requirements}
+    {\begin{requirementscompact}}
+    {\end{requirementscompact}}
+
+  \renewcommand{\requirement}[3][0.6\textwidth]{
+    \requirementcompact{#2}{#3}
+  }
+
+  \renewcommand{\ReqSpacing}[1][]{}
+}
+%    \end{macrocode}
+%
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<reqdoc>%%%%% END Declaration of options %%%%%
+% \fi^^A END Produce comments only in the resulting style file
+%
+% Afterwards, we process the options accordingly
+%
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<reqdoc>
+%<reqdoc>%%%%% BEGIN Execution of options %%%%%
+% \fi^^A END Produce comments only in the resulting style file
+% 
+%    \begin{macrocode}
+\ProcessOptions
+%    \end{macrocode}
+%
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<reqdoc>%%%%% END Execution of options %%%%%
+% \fi^^A END Produce comments only in the resulting style file
+%
+% In the subsequent, we define the environment and macro for different
+% package options.
+% \begin{environment}{requirementsbox}
+%   \changes{v1.3}{2012/06/28}{Environment added}
+%   We define environment |requirementsbox| is the same as
+%   environment |center|.
+% 
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<*reqdoc>
+
+%%%%% Utility environment for requirements in boxes.
+%%%%% Note: Users should not use this environment directly
+%</reqdoc>
+% \fi^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\newenvironment{requirementsbox}
+  {\begin{center}}
+  {\end{center}}
+
+%    \end{macrocode}
+% \end{environment}^^A{requirementsbox}
+%
+% \begin{environment}{requirementscompact}
+%   \changes{v1.3}{2012/06/28}{Environment added}
+%   We define environment |requirementcompact| is the same as
+%   environment |description| with font |\small|
+%
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<*reqdoc>
+
+%%%%% Utility environment for requirements as descriptions.
+%%%%% Note: Users should not use this environment directly
+%</reqdoc>
+% \fi^^A END Produce comments only in the resulting style file
+%    \begin{macrocode}
+  \newenvironment{requirementscompact}
+    {\begin{description}\small}
+    {\end{description}}
+%    \end{macrocode}
+% \end{environment}^^A{requirementscompact}
+%
+%
+% \begin{macro}{\ReqSpacingBox}
+%   \changes{v1.3}{2012/06/29}{Macro added}
+%   We define |\ReqSpacingBox| by passing the optional argument
+%   \oarg{height} to |\\|.
+%
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<*reqdoc>
+
+%%%%% Utility macro for spacing between requirements.
+%%%%% Note: Users should not use this environment directly
+%</reqdoc>
+% \fi^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\newcommand{\ReqSpacingBox}[1][2ex]{\\[#1]}
+%    \end{macrocode}
+% \end{macro}^^A{\ReqSpacingBox}
+%
+% \begin{macro}{\requirementbox}
+%   \changes{v1.3}{2012/06/29}{Macro added}
+%   The macro for typesetting a requirement in a box is as follows.
+% 
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<*reqdoc>
+
+%%%%% Requirement in a box: 
+%%%%%   Provide a requirement box with label and description text.
+%%%%%   The requirement counter is used automatically.
+%%%%% Note:
+%%%%%   Users should use the sub-category requirements, e.g. \fun, \env
+%%%%%   This macros is used for defining those specific requirements
+%%%%%
+%%%%% Arguments:
+%%%%%   1. (Optional) Width of the explanation text. 
+%%%%%      (Default value: 0.6\textwidth)
+%%%%%   2. Label text prefix (e.g. ENV, FUN, SAF, ASM, EQP, etc.)
+%%%%%   3. Explanation text.
+%%%%%
+%%%%% Usage: 
+%%%%%   \requirementbox[0.8\textwidth]{ASM}{An assumption is ...}
+%%%%%   \requirementbox{FUN}{A functional requirement is ...}
+%</reqdoc>
+% \fi^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\newcommand{\requirementbox}[3][0.6\textwidth]{
+  \medskip
+  \refstepcounter{requirement@counter}
+  \begin{tabular}{|@{\quad}c@{\quad}|@{\quad}c@{\quad}|}
+    \hline
+    & \\
+    \textsf{#2~\arabic{requirement@counter}} &
+    \begin{minipage}[c]{#1}
+      \begin{center}
+        #3
+      \end{center}
+    \end{minipage} \\
+    & \\
+    \hline
+  \end{tabular}
+}
+%    \end{macrocode}
+% \end{macro}^^A{\requirementbox}
+%
+% \begin{macro}{\requirementcompact}
+%   \changes{v1.3}{2012/06/29}{Macro added}
+%   The macro for typesetting a requirement as a compact item is as follows.
+%    \begin{macrocode}
+  \newcommand{\requirementcompact}[2]{
+    \medskip
+    \refstepcounter{requirement@counter}
+    \item[\textsf{#1~\arabic{requirement@counter}}] #2
+  }
+%    \end{macrocode}
+% \end{macro}^^A{\requirementcompact}
+% 
+% \begin{macro}{requirement@counter}
+% We define a counter for requirements, which will be used within the
+% the labels of the requirements.
+% 
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<reqdoc>
+%<reqdoc>%%%%% The shared counter for requirements
+% \fi^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\newcounter{requirement@counter}
+\labelformat{requirement@counter}{REQ~#1}
+%    \end{macrocode}
+% \end{macro}^^A{requirement@counter}
+%
+%
+% We define some specific commands for different type of requirements.
+% These commands are those that the user should use to typeset the
+% requirements.  Each command associated with a new counter for each
+% type of requirements and a unique label format.  Each type of
+% requirement use the underlying macro |\requirement|
+% as defined earlier.
+%
+% \begin{macro}{reqc}
+% \begin{macro}{\req}
+%   \changes{v1.2}{2011/09/22}{Macro added}
+%   Command for typesetting REQUIREMENT (typically prefixed with REQ).
+%
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<*reqdoc>
+
+%%%%% Specific command for REQUIREMENT (REQ). This command used the
+%%%%% general macro \requirement for requirement.
+%%%%% Arguments:
+%%%%%   1. (Optional) Width of the explanation text. 
+%%%%%      (Default value: 0.6\textwidth)
+%%%%%   2. Reference label.
+%%%%%   3. Explanation text.
+%%%%%
+%%%%% Usage: 
+%%%%%   \req[0.8\textwidth]{req1}{The 1st requirement is ...}
+%%%%%   \req{req2}{The 2nd requirement is ...}
+%%%%%   Requirements \ref{req1} and \ref{req2} are modelled ...
+%</reqdoc>
+% \fi^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\newcounter{reqc}
+\labelformat{reqc}{REQ~#1}
+\newcommand{\req}[3][0.6\textwidth]{
+  \setcounter{reqc}{\value{requirement@counter}}
+  \requirement[#1]{REQ}{#3}
+  \refstepcounter{reqc}
+  \label{#2}
+}
+%    \end{macrocode}
+% \end{macro}^^A{\req}
+% \end{macro}^^A{reqc}
+%
+% \begin{macro}{eqpc}
+% \begin{macro}{\eqp}
+%   Command for typesetting EQUIPMENT requirements (typically prefixed with EQP).
+%
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<*reqdoc>
+
+%%%%% Specific command for EQUIPMENT (EQP) requirements. This command
+%%%%% used the general macro \requirement for requirement.
+%%%%% Arguments:
+%%%%%   1. (Optional) Width of the explanation text. 
+%%%%%      (Default value: 0.6\textwidth)
+%%%%%   2. Reference label.
+%%%%%   3. Explanation text.
+%%%%%
+%%%%% Usage: 
+%%%%%   \eqp[0.8\textwidth]{eqp1}{The 1st equipment is ...}
+%%%%%   \eqp{eqp2}{The 2nd equipment is ...}
+%%%%%   Requirements \ref{eqp1} and \ref{eqp2} are modelled ...
+%</reqdoc>
+% \fi^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\newcounter{eqpc}
+\labelformat{eqpc}{EQP~#1}
+\newcommand{\eqp}[3][0.6\textwidth]{
+  \setcounter{eqpc}{\value{requirement@counter}}
+  \requirement[#1]{EQP}{#3}
+  \refstepcounter{eqpc}
+  \label{#2}
+}
+%    \end{macrocode}
+% \end{macro}^^A{\eqp}
+% \end{macro}^^A{eqpc}
+%
+% \begin{macro}{func}
+% \begin{macro}{\fun}
+%   Command for typesetting FUNCTIONAL requirements (typically
+%   prefixed with FUN).
+%
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<*reqdoc>
+
+%%%%% Specific command for FUNCTIONAL (FUN) requirements. This command
+%%%%% used the general macro \requirement for requirement.
+%%%%% Arguments:
+%%%%%   1. (Optional) Width of the explanation text. 
+%%%%%      (Default value: 0.6\textwidth)
+%%%%%   2. Reference label.
+%%%%%   3. Explanation text.
+%%%%%
+%%%%% Usage: 
+%%%%%   \fun[0.8\textwidth]{fun1}{The 1st functional requirement is ...}
+%%%%%   \fun{fun2}{The 2nd functional requirement is ...}
+%%%%%   Requirements \ref{fun1} and \ref{fun2} are modelled ...
+%</reqdoc>
+% \fi^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\newcounter{func}
+\labelformat{func}{FUN~#1}
+\newcommand{\fun}[3][0.6\textwidth]{
+  \setcounter{func}{\value{requirement@counter}}
+  \requirement[#1]{FUN}{#3}
+  \refstepcounter{func}
+  \label{#2}
+}
+%    \end{macrocode}
+% \end{macro}^^A{\fun}
+% \end{macro}^^A{func}
+%
+% \begin{macro}{sysc}
+% \begin{macro}{\sys}
+%   Command for typesetting SYSTEM requirements (typically
+%   prefixed with SYS).
+%
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<*reqdoc>
+
+%%%%% Specific command for SYSTEM (SYS) requirements. This command
+%%%%% used the general macro \requirement for requirement.
+%%%%% Arguments:
+%%%%%   1. (Optional) Width of the explanation text. 
+%%%%%      (Default value: 0.6\textwidth)
+%%%%%   2. Reference label.
+%%%%%   3. Explanation text.
+%%%%%
+%%%%% Usage: 
+%%%%%   \sys[0.8\textwidth]{sys1}{The 1st system requirement is ...}
+%%%%%   \sys{sys2}{The 2nd system requirement is ...}
+%%%%%   Requirements \ref{sys1} and \ref{sys2} are modelled ...
+%</reqdoc>
+% \fi^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\newcounter{sysc}
+\labelformat{sysc}{SYS~#1}
+\newcommand{\sys}[3][0.6\textwidth]{
+  \setcounter{sysc}{\value{requirement@counter}}
+  \requirement[#1]{SYS}{#3}
+  \refstepcounter{sysc}
+  \label{#2}
+}
+%    \end{macrocode}
+% \end{macro}^^A{\sys}
+% \end{macro}^^A{sysc}
+%
+% \begin{macro}{safc}
+% \begin{macro}{\saf}
+%   Command for typesetting SAFETY requirements (typically
+%   prefixed with SAF).
+%
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<*reqdoc>
+
+%%%%% Specific command for SAFETY (SAF) requirements. This command
+%%%%% used the general macro \requirement for requirement.
+%%%%% Arguments:
+%%%%%   1. (Optional) Width of the explanation text. 
+%%%%%      (Default value: 0.6\textwidth)
+%%%%%   2. Reference label.
+%%%%%   3. Explanation text.
+%%%%%
+%%%%% Usage: 
+%%%%%   \saf[0.8\textwidth]{saf1}{The 1st safety requirement is ...}
+%%%%%   \saf{saf2}{The 2nd safety requirement is ...}
+%%%%%   Requirements \ref{saf1} and \ref{saf2} are modelled ...
+%</reqdoc>
+% \fi^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\newcounter{safc}
+\labelformat{safc}{SAF~#1}
+\newcommand{\saf}[3][0.6\textwidth]{
+  \setcounter{safc}{\value{requirement@counter}}
+  \requirement[#1]{SAF}{#3}
+  \refstepcounter{safc}
+  \label{#2}
+}
+%    \end{macrocode}
+% \end{macro}^^A{\saf}
+% \end{macro}^^A{safc}
+%
+% \begin{macro}{envc}
+% \begin{macro}{\env}
+%   Command for typesetting ENVIRONMENT requirements (typically
+%   prefixed with ENV).
+%
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<*reqdoc>
+
+%%%%% Specific command for ENVIRONMENT (ENV) requirements. This command
+%%%%% used the general macro \requirement for requirement.
+%%%%% Arguments:
+%%%%%   1. (Optional) Width of the explanation text. 
+%%%%%      (Default value: 0.6\textwidth)
+%%%%%   2. Reference label.
+%%%%%   3. Explanation text.
+%%%%%
+%%%%% Usage: 
+%%%%%   \env[0.8\textwidth]{env1}{The 1st environment requirement is ...}
+%%%%%   \env{env2}{The 2nd environment requirement is ...}
+%%%%%   Requirements \ref{env1} and \ref{env2} are modelled ...
+%</reqdoc>
+% \fi^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\newcounter{envc}
+\labelformat{envc}{ENV~#1}
+\newcommand{\env}[3][0.6\textwidth]{
+  \setcounter{envc}{\value{requirement@counter}}
+  \requirement[#1]{ENV}{#3}
+  \refstepcounter{envc}
+  \label{#2}
+}
+%    \end{macrocode}
+% \end{macro}^^A{\env}
+% \end{macro}^^A{envc}
+%
+% \begin{macro}{asmc}
+% \begin{macro}{\asm}
+%   Command for typesetting ASSUMPTIONS (typically
+%   prefixed with ASM).
+%
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<*reqdoc>
+
+%%%%% Specific command for ASSUMPTIONS (ASM). This command
+%%%%% used the general macro \requirement for requirement.
+%%%%% Arguments:
+%%%%%   1. (Optional) Width of the explanation text. 
+%%%%%      (Default value: 0.6\textwidth)
+%%%%%   2. Reference label.
+%%%%%   3. Explanation text.
+%%%%%
+%%%%% Usage: 
+%%%%%   \asm[0.8\textwidth]{asm1}{The 1st assumption is ...}
+%%%%%   \asm{asm2}{The 2nd assumption is ...}
+%%%%%   Requirements \ref{asm1} and \ref{asm2} are modelled ...
+%</reqdoc>
+% \fi^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\newcounter{asmc}
+\labelformat{asmc}{ASM~#1}
+\newcommand{\asm}[3][0.6\textwidth]{
+  \setcounter{asmc}{\value{requirement@counter}}
+  \requirement[#1]{ASM}{#3}
+  \refstepcounter{asmc}
+  \label{#2}
+}
+%    \end{macrocode}
+% \end{macro}^^A{\asm}
+% \end{macro}^^A{asmc}
+%
+% \begin{macro}{schedc}
+% \begin{macro}{\sched}
+%   Command for typesetting SCHEDULING requirements (typically
+%   prefixed with SCHED).
+%
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<*reqdoc>
+
+%%%%% Specific command for SCHEDULING (SCHED) requirements. This command
+%%%%% used the general macro \requirement for requirement.
+%%%%% Arguments:
+%%%%%   1. (Optional) Width of the explanation text. 
+%%%%%      (Default value: 0.6\textwidth)
+%%%%%   2. Reference label.
+%%%%%   3. Explanation text.
+%%%%%
+%%%%% Usage: 
+%%%%%   \sched[0.8\textwidth]{sched1}{The 1st scheduling requirement is ...}
+%%%%%   \sched{sched2}{The 2nd scheduling requirement is ...}
+%%%%%   Requirements \ref{sched1} and \ref{sched2} are modelled ...
+%</reqdoc>
+% \fi^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\newcounter{schedc}
+\labelformat{schedc}{SCHED~#1}
+\newcommand{\sched}[3][0.6\textwidth]{
+  \setcounter{schedc}{\value{requirement@counter}}
+  \requirement[#1]{SCHED}{#3}
+  \refstepcounter{schedc}
+  \label{#2}
+}
+%    \end{macrocode}
+% \end{macro}^^A{\sched}
+% \end{macro}^^A{schedc}
+%
+% \begin{macro}{algc}
+% \begin{macro}{\alg}
+%   Command for typesetting ALGORITHM requirements (typically
+%   prefixed with ALG).
+%
+% \iffalse^^A BEGIN Produce comments only in the resulting style file
+%<*reqdoc>
+
+%%%%% Specific command for ALGORITHM (ALG) requirements. This command
+%%%%% used the general macro \requirement for requirement.
+%%%%% Arguments:
+%%%%%   1. (Optional) Width of the explanation text. 
+%%%%%      (Default value: 0.6\textwidth)
+%%%%%   2. Reference label.
+%%%%%   3. Explanation text.
+%%%%%
+%%%%% Usage: 
+%%%%%   \alg[0.8\textwidth]{alg1}{The 1st algorithm requirement is ...}
+%%%%%   \alg{alg2}{The 2nd algorithm requirement is ...}
+%%%%%   Requirements \ref{alg1} and \ref{alg2} are modelled ...
+%</reqdoc>
+% \fi^^A END Produce comments only in the resulting style file
+%
+%    \begin{macrocode}
+\newcounter{algc}
+\labelformat{algc}{ALG~#1}
+\newcommand{\alg}[3][0.6\textwidth]{
+  \setcounter{algc}{\value{requirement@counter}}
+  \requirement[#1]{ALG}{#3}
+  \refstepcounter{algc}
+  \label{#2}
+}
+%    \end{macrocode}
+% \end{macro}^^A{\alg}
+% \end{macro}^^A{algc}
+%
+% \Finale
+% \PrintChanges
+% \PrintIndex

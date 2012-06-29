@@ -1,0 +1,76 @@
+\title{A Requirements Document \\for a Course Management System}
+\author{Thai Son Hoang\\ETH Zurich\\\texttt{<htson at inf dot ethz dot
+    ch>}}
+
+\begin{document}
+\maketitle
+
+We present below a sample requirements document and a refinement
+strategy that refers to the informal requirements.
+
+\section{Requirements Document}
+\label{sec:requ-docum}
+
+A club has some fixed \emph{members}, amongst
+them are \emph{instructors} and \emph{participants}.  Note that a
+member can be both an instructor and a participant.
+\begin{requirements}
+  \asm[0.5\textwidth]{asm:instructors}{Instructors are members of the club.}
+  \ReqSpacing
+  \asm[0.5\textwidth]{asm:participants}{Participants are members of the club.}
+\end{requirements}
+
+There are pre-defined \emph{courses} that can be offered by a club.
+Each course is associated with exactly one fixed instructor.
+\begin{requirements}
+  \asm[0.5\textwidth]{asm:courses}{There are pre-defined courses.}
+  \ReqSpacing
+  \asm{asm:course-instructor}{Each course is assigned to one fixed instructor.}
+\end{requirements}
+A course is either \emph{opened} or \emph{closed} and is managed by
+the system.
+\begin{requirements}
+  \req{req:course-status}{A course is either \emph{opened} or
+    \emph{closed}.}
+  \ReqSpacing
+  \req{req:open-course}{The system allows to open a closed course.}
+  \ReqSpacing
+  \req{req:close-course}{The system allows to close an opened course.}
+\end{requirements}
+
+The number of opened courses is limited.
+\begin{requirements}
+  \req[0.5\textwidth]{req:course-limit}{The number of opened courses \\cannot exceed a given limit.}
+\end{requirements}
+
+Only when a course is opened, participants can \emph{register} for the
+course.  An important constraint for registration is that an
+instructor cannot attend his own courses.
+\begin{requirements}
+  \req[0.65\textwidth]{req:registration}{Participants can only register for an opened
+    course.}
+  \ReqSpacing
+  \req{req:conflict}{Instructors cannot attend their own courses.}
+\end{requirements}
+
+\section{A Refinement Strategy}
+\label{sec:refinement-strategy}
+
+Typically, before attempting to model a system, it is important to
+sketch a plan of how the requirements are going to be addressed.
+These plans are called \emph{refinement strategies}.  For our running
+example, we adopt the following strategy.
+\begin{description}
+\item[Initial Model] To model how courses are opened and closed by the
+  system, limiting the number of opened courses (\ref{asm:courses},
+  \ref{req:course-status}, \ref{req:open-course}, \ref{req:close-course}, and
+  \ref{req:course-limit}).
+\item[First Refinement] To model the club members, including
+  instructors and participants, along with registration for courses
+  (\ref{asm:instructors}, \ref{asm:participants},
+  \ref{asm:course-instructor}, \ref{req:registration}, and
+  \ref{req:conflict}).
+\item[Second Refinement] To data refine the model from the first refinement.
+\end{description}
+
+\end{document}

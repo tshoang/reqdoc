@@ -9,27 +9,30 @@ requirements documents in LaTeX.
 Installation
 ------------
 
-To install the package, first unpack it in some location then issue the
-following command:
+The package is already pre-compiled. However, in the case where it is
+needed for recompiling, a Makefile has been provided. The users
+can simply issue the following command:
 
-  latex reqdoc.ins
+  make
 
-This will produce a new file named "reqdoc.sty" that you should copy to
-some proper location for LaTeX to find it later (e.g.,
+This will perform the following:
+- To create the style file "reqdoc.sty"
+- To create the documentation "reqdoc.pdf"
+- To create the sample "sample-normal.pdf"
+- To create the sample "sample-compact.pdf"
+
+The style file "reqdoc.sty" should be copied to some proper location
+for LaTeX to find it later (e.g.,
 "/usr/local/share/texmf/tex/reqdoc.sty").
 
 
 Documentation
 -------------
 
-There are two documentation files delivered with this package:
+There are one documentation file delivered with this package:
 
   - File "reqdoc.pdf" contains the source of the style file in the
     classical literate programming style.
-
-  - File "refcard.pdf" contains a list of the package macros typeset
-    on one page for easy reference.
-
 
 License
 -------

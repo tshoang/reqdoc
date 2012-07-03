@@ -42,7 +42,7 @@
 %</driver> 
 % \fi
 % 
-% \CheckSum{253}
+% \CheckSum{163}
 % 
 % \CharacterTable
 % {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
@@ -302,6 +302,11 @@
 %   \end{minipage}
 % \end{center}
 %
+% \StopEventually{
+% \PrintChanges
+% \PrintIndex
+% }
+%
 % ^^A %%%%% Implementation %%%%%
 % \section{Implementation}
 %
@@ -441,9 +446,10 @@
 %</reqdoc>
 % \fi^^A END Produce comments only in the resulting style file
 %    \begin{macrocode}
-  \newenvironment{requirementscompact}
-    {\begin{description}\small}
-    {\end{description}}
+\newenvironment{requirementscompact}
+  {\begin{description}\small}
+  {\end{description}}
+\renewcommand\descriptionlabel[1]{{\small\hspace{\labelsep}\textsf{#1}}}
 %    \end{macrocode}
 % \end{environment}^^A{requirementscompact}
 %
@@ -871,5 +877,4 @@
 % \end{macro}^^A{algc}
 %
 % \Finale
-% \PrintChanges
-% \PrintIndex
+\endinput

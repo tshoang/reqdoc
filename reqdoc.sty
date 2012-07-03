@@ -63,9 +63,10 @@
 
 %%%%% Utility environment for requirements as descriptions.
 %%%%% Note: Users should not use this environment directly
-  \newenvironment{requirementscompact}
-    {\begin{description}\small}
-    {\end{description}}
+\newenvironment{requirementscompact}
+  {\begin{description}\small}
+  {\end{description}}
+\renewcommand\descriptionlabel[1]{{\small\hspace{\labelsep}\textsf{#1}}}
 
 %%%%% Utility macro for spacing between requirements.
 %%%%% Note: Users should not use this environment directly
